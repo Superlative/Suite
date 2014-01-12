@@ -1,0 +1,25 @@
+## Title: Suite
+## Interface: 50100
+## Author: Riá - Outland
+
+ATrinket
+BigDebuffs.lua
+Border.lua
+BuffTracker.lua
+CastBar.lua
+Class.lua
+Color.lua
+Cooldowns
+Dark.lua
+ECooldowns
+Fps.lua
+Frames.lua
+Gladius.lua
+Hptext.lua
+Icon.lua
+Map.lua
+Party
+RedHover
+SafeQue
+Spam.lua
+Test.lua
