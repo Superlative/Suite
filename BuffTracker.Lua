@@ -9,7 +9,7 @@ yb = y positon of buff Tracker
 br = x buffs per line
 
 -SHAMAN
-    	-- 114049 - Acendance
+    -- 114049 - Acendance
 	-- 108281 - Ancestral Guidance
 	-- 324    - Lightning Shield -- Dosnt update properly
 	-- 16246  - Clearcasting / Elemental Focus
