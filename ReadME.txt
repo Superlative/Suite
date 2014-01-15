@@ -5,9 +5,9 @@ Frames.Lua----------------------
 3. Removes pesky icons on player/raid frames (like rest icon ect)
 
 Gladius.lua---------------------
-1. Reposition arena frames to abovve focus
+1. Reposition arena frames to above focus
 2. Changes scale of arena frames
-3. Adds Trinket Tracker (not sure if works)
+3. Adds Trinket Tracker
 4. /testaef to test frames 
 5. Dr Tracker
 
@@ -30,13 +30,13 @@ RedHover.lua---------------------
 1. makes mouseover macros turn red on out of range
 
 SafeQue.lua-----------------------
-1. Removes the "Leave que" button when arena que pops (old and might not work)
+1. Removes the "Leave que" button when arena que pops
 
 Spam.Lua--------------------------
 1. Removes small combattext on player/pet frame
 
 ATrinket.lua----------------------
-1. Arena trinkets (works)
+1. Arena trinkets (not sure if works)
 
 BigDebuffs.lua--------------------
 1. Increase the size of buffs/debuffs you casted

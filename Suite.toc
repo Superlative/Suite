@@ -20,6 +20,6 @@ Icon.lua
 Map.lua
 Party
 RedHover
-SafeQue
+SafeQue.lua
 Spam.lua
 Test.lua
