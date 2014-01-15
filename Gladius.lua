@@ -4,27 +4,22 @@ function events:ADDON_LOADED(addonName)
     if addonName ~= "Blizzard_ArenaUI" then
         return
     end
-        ArenaEnemyFrame1:ClearAllPoints()
-        ArenaEnemyFrame1:SetPoint("CENTER", FocusFrame, "CENTER", 0, 100) -- Change position of arena frames
-		ArenaEnemyFrame1:SetScale(1.4) -- Change size of Arena frames
-        ArenaEnemyFrame1.SetPoint = function() end	
-        ArenaEnemyFrame2:ClearAllPoints()
-        ArenaEnemyFrame2:SetPoint("BOTTOMLEFT", ArenaEnemyFrame1, "BOTTOMLEFT", 0, 50) -- Might need to change (0,50) if :SetSize is increased
-		ArenaEnemyFrame2:SetScale(1.4)	
-        ArenaEnemyFrame2.SetPoint = function() end
-        ArenaEnemyFrame3:ClearAllPoints()
-        ArenaEnemyFrame3:SetPoint("BOTTOMLEFT", ArenaEnemyFrame1, "BOTTOMLEFT", 0, 100)
-		ArenaEnemyFrame3:SetScale(1.4)	
-        ArenaEnemyFrame3.SetPoint = function() end
-        ArenaEnemyFrame4:ClearAllPoints()
-		ArenaEnemyFrame4:SetPoint("BOTTOMLEFT", ArenaEnemyFrame1, "BOTTOMLEFT", 0, 150)
-		ArenaEnemyFrame4:SetScale(1.4)	
-        ArenaEnemyFrame4.SetPoint = function() end
-        ArenaEnemyFrame5:ClearAllPoints()		
-		ArenaEnemyFrame5:SetPoint("BOTTOMLEFT", ArenaEnemyFrame1, "BOTTOMLEFT", 0, 200)
-		ArenaEnemyFrame5:SetScale(1.4)	
-        ArenaEnemyFrame5.SetPoint = function() end		
-    local arenaFrame, trinket -- Dose not work :S?
+	
+	for i=1, 5 do
+	_G["ArenaEnemyFrame"..i]:ClearAllPoints()
+	_G["ArenaEnemyFrame"..i]:SetScale(1.4) -- Set size of arena frames
+	_G["ArenaEnemyFrame"..i.."CastingBar"]:SetScale(1.4) -- Set size of arena castbars
+	_G["ArenaEnemyFrame"..i.."CastingBar"]:SetPoint("RIGHT", 95, 0) -- Set position of arena castbar
+	_G["ArenaEnemyFrame"..i]:SetPoint("CENTER", FocusFrame, "CENTER", 0, 80+(i-1)*50) -- Set position of arena frames
+	--_G["ArenaEnemyFrame"..i].SetPoint = function() end -- if arena frames dont update their position
+	end
+	
+	--ArenaEnemyFrame1:SetPoint("CENTER", FocusFrame, "CENTER", 0, 100)
+	--for i=2, 5 do
+	--_G["ArenaEnemyFrame"..i]:SetPoint("BOTTOMLEFT", ArenaEnemyFrame1, "BOTTOMLEFT", 0, (i-1)*50)
+	--end
+		
+    local arenaFrame, trinket
     for i = 1, MAX_ARENA_ENEMIES do
 	    arenaFrame = "ArenaEnemyFrame"..i
         trinket = CreateFrame("Cooldown", arenaFrame.."Trinket", ArenaEnemyFrames)
@@ -38,7 +33,7 @@ function events:ADDON_LOADED(addonName)
     end
     self:UnregisterEvent("ADDON_LOADED")
 end
-function events:UNIT_SPELLCAST_SUCCEEDED(unitID, spell, rank, lineID, spellID)
+function events:UNIT_SPELLCAST_SUCCEEDED(unitID, spell, rank, lineID, spellID) -- Announces Trinket usage in party chat
     if not trinkets[unitID] then
         return
     end
@@ -48,6 +43,9 @@ function events:UNIT_SPELLCAST_SUCCEEDED(unitID, spell, rank, lineID, spellID)
     elseif spellID == 7744 then
         CooldownFrame_SetTimer(trinkets[unitID], GetTime(), 45, 1)
         SendChatMessage("WotF used by: "..GetUnitName(unitID, true), "PARTY")
+	elseif spellID == 108482 then
+        CooldownFrame_SetTimer(trinkets[unitID], GetTime(), 60, 1)
+        SendChatMessage("Warlock Trinket used by: "..GetUnitName(unitID, true), "PARTY")
     end
 end
 function events:PLAYER_ENTERING_WORLD()

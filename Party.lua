@@ -1,20 +1,11 @@
 -- Grow upwards (ugly hack)
 
-PartyMemberFrame1:ClearAllPoints()
-PartyMemberFrame1:SetPoint("CENTER", PlayerFrame, "CENTER", 0, 100) -- Anchor to player frame (change to move frames)
-PartyMemberFrame1:SetScale(1.2)
-	
-PartyMemberFrame2:ClearAllPoints()
-PartyMemberFrame2:SetPoint("CENTER", PartyMemberFrame1, "CENTER", 0,65) -- If :SetScale(x.x) changes you might need to change (0,65) to a bigger nummer
-PartyMemberFrame2:SetScale(1.2)
-
-PartyMemberFrame3:ClearAllPoints()
-PartyMemberFrame3:SetPoint("CENTER", PartyMemberFrame2, "CENTER", 0,65)
-PartyMemberFrame3:SetScale(1.2)
-
-PartyMemberFrame4:ClearAllPoints()
-PartyMemberFrame4:SetPoint("CENTER", PartyMemberFrame3, "CENTER", 0,65)
-PartyMemberFrame4:SetScale(1.2)
+for i=1, 5 do
+	_G["PartyMemberFrame"..i]:ClearAllPoints()
+	_G["PartyMemberFrame"..i]:SetScale(1.4)
+	--_G["PartyMemberFrame"..i].SetPoint = function() end
+	_G["PartyMemberFrame"..i]:SetPoint("CENTER", PlayerFrame, "CENTER", 0, 80+(i-1)*50)
+end
 
 -- Old Party Frame
 local f = CreateFrame("Frame")
