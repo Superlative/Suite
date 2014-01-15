@@ -13,12 +13,12 @@ function events:ADDON_LOADED(addonName)
 	_G["ArenaEnemyFrame"..i]:SetPoint("CENTER", FocusFrame, "CENTER", 0, 80+(i-1)*50) -- Set position of arena frames
 	--_G["ArenaEnemyFrame"..i].SetPoint = function() end -- if arena frames dont update their position
 	end
-	
+
 	--ArenaEnemyFrame1:SetPoint("CENTER", FocusFrame, "CENTER", 0, 100)
 	--for i=2, 5 do
 	--_G["ArenaEnemyFrame"..i]:SetPoint("BOTTOMLEFT", ArenaEnemyFrame1, "BOTTOMLEFT", 0, (i-1)*50)
 	--end
-		
+
     local arenaFrame, trinket
     for i = 1, MAX_ARENA_ENEMIES do
 	    arenaFrame = "ArenaEnemyFrame"..i
@@ -66,12 +66,14 @@ SlashCmdList["TESTAEF"] = function(msg, editBox)
         LoadAddOn("Blizzard_ArenaUI")
     end
     ArenaEnemyFrames:Show()
-    local arenaFrame
+    local arenaFrame --, arenaFrameCastbar
     for i = 1, 5 do
+		--arenaFrameCastbar = _G["ArenaEnemyFrame"..i.."CastingBar"]
         arenaFrame = _G["ArenaEnemyFrame"..i]		
         arenaFrame.classPortrait:SetTexture("Interface\\TargetingFrame\\UI-Classes-Circles")
         arenaFrame.classPortrait:SetTexCoord(unpack(CLASS_ICON_TCOORDS["WARRIOR"]))
         arenaFrame.name:SetText("Dispelme")
+		--arenaFrameCastbar:Show()
         arenaFrame:Show()        		
         --CooldownFrame_SetTimer(trinkets["arena"..i], GetTime(), 120, 1)		
     end

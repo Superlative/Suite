@@ -31,7 +31,6 @@ local function eventHandler(self, event, ...)
                 c = RAID_CLASS_COLORS[select(2, UnitClass("focus"))]
                 FocusFrameNameBackground:SetVertexColor(c.r, c.g, c.b)
         end
-end
 
 -- arena frame class color'd hp bars
 local bar,color 
@@ -42,6 +41,6 @@ local bar,color
 			bar:SetStatusBarColor(color.r,color.g,color.b)
 		end
 	end
- 
+end 
 
 frame:SetScript("OnEvent", eventHandler)
