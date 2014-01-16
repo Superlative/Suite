@@ -9,15 +9,12 @@ function events:ADDON_LOADED(addonName)
 	_G["ArenaEnemyFrame"..i]:ClearAllPoints()
 	_G["ArenaEnemyFrame"..i]:SetScale(1.4) -- Set size of arena frames
 	_G["ArenaEnemyFrame"..i.."CastingBar"]:SetScale(1.4) -- Set size of arena castbars
-	_G["ArenaEnemyFrame"..i.."CastingBar"]:SetPoint("RIGHT", 95, 0) -- Set position of arena castbar
 	_G["ArenaEnemyFrame"..i]:SetPoint("CENTER", FocusFrame, "CENTER", 0, 80+(i-1)*50) -- Set position of arena frames
+	--_G["ArenaEnemyFrame"..i.."CastingBar"]:SetPoint("RIGHT", 95, 0) -- Set position of arena castbar
 	--_G["ArenaEnemyFrame"..i].SetPoint = function() end -- if arena frames dont update their position
+	_G["ArenaEnemyFrame"..i.."PetFrame"]:ClearAllPoints()
+	_G["ArenaEnemyFrame"..i.."PetFrame"]:SetPoint("TOP", "ArenaEnemyFrame"..i, "BOTTOM", 0, 5)
 	end
-
-	--ArenaEnemyFrame1:SetPoint("CENTER", FocusFrame, "CENTER", 0, 100)
-	--for i=2, 5 do
-	--_G["ArenaEnemyFrame"..i]:SetPoint("BOTTOMLEFT", ArenaEnemyFrame1, "BOTTOMLEFT", 0, (i-1)*50)
-	--end
 
     local arenaFrame, trinket
     for i = 1, MAX_ARENA_ENEMIES do
@@ -66,16 +63,22 @@ SlashCmdList["TESTAEF"] = function(msg, editBox)
         LoadAddOn("Blizzard_ArenaUI")
     end
     ArenaEnemyFrames:Show()
-    local arenaFrame --, arenaFrameCastbar
+    local arenaFrame, arenaPet, arenaCastbar, test
     for i = 1, 5 do
-		--arenaFrameCastbar = _G["ArenaEnemyFrame"..i.."CastingBar"]
+		--Arena Frames
         arenaFrame = _G["ArenaEnemyFrame"..i]		
         arenaFrame.classPortrait:SetTexture("Interface\\TargetingFrame\\UI-Classes-Circles")
         arenaFrame.classPortrait:SetTexCoord(unpack(CLASS_ICON_TCOORDS["WARRIOR"]))
         arenaFrame.name:SetText("Dispelme")
-		--arenaFrameCastbar:Show()
         arenaFrame:Show()        		
-        --CooldownFrame_SetTimer(trinkets["arena"..i], GetTime(), 120, 1)		
+		--Castbar
+		arenaCastbar = _G["ArenaEnemyFrame"..i.."CastingBar"]
+		arenaCastbar:Show()
+		--PET
+		arenaPet = _G["ArenaEnemyFrame"..i.."PetFrame"]
+		arenaPet:Show()
+		--Trinket
+		CooldownFrame_SetTimer(trinkets["arena"..i], GetTime(), 120, 1)
     end
 end
 events:SetScript("OnEvent", function(self, event, ...) return self[event](self, ...) end)
