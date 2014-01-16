@@ -8,18 +8,27 @@ yb = y positon of buff Tracker
 
 br = x buffs per line
 
--SHAMAN
+--ALL
+	-- 137326 - Lucidity - Legendary meta gem (healer shaman)
+
+--SHAMAN
+	-- PvP
     -- 114049 - Acendance
 	-- 108281 - Ancestral Guidance
-	-- 324    - Lightning Shield -- Dosnt update properly
 	-- 16246  - Clearcasting / Elemental Focus
 	-- 117014 - Elemental Blast
 	-- 79206  - Spiritwalker's Grace
+	-- PVE
+	-- 146202 - Wrath - Black blood of Black Blood of Y'Shaarj (flex)
+	-- 148906 - Toxic Power - Kardris' Toxic Totem (flex)
+	-- 137590 - Tempus Repeit - Legendary Meta gem (int dps)
+	-- 104993 - Jade Spirit - Weapon enchant
+	-- 148897 - Extravagant Vision - Frenzied Crystal of Rage (hc WF)
 ]]--
 
 --[[buffs tracker]]
 
-bl={114049, 108281, 16246, 117014, 79206} -- Spelllist
+bl={114049, 108281, 16246, 117014, 79206, 146202, 148906, 137590, 104993, 148897} -- Spelllist
 bs=30;xb=-62;yb=0;br=6;bdr="BORDER"be="UNIT_AURA"cbf=CreateFrame;gi=GetSpellInfo;bm=math.ceil;fm=math.floor;st=STANDARD_TEXT_FONT;function cu(s)return UnitBuff("player",gi(s))end
 function Cb(i,s)local _,_,t3=gi(s)local f=cbf("Frame")f:SetSize(bs,bs)f.t=f:CreateTexture(nil,bdr)f.t:SetAllPoints(true)f.t:SetTexture(t3)f.f=f:CreateFontString(nil,bdr)f.f:SetFont(st,12,"OUTLINE")f.f:SetPoint("BOTTOMRIGHT",0,0)return f;end
 function vb(s,i,row)local b1,_,_,b4=cu(s)local f=_G["B"..i]if b1 then f:Show()f:SetPoint("CENTER",xb+(bs+5)*bm((row-1)%br),yb-(bs+10)*bm(row/br))if(b4>1)then f.f:SetText(b4)end row=row+1;end return row;end
