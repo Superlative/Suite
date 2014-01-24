@@ -6,17 +6,17 @@ function events:ADDON_LOADED(addonName)
     end
 	
 	for i=1, 5 do
-	_G["ArenaEnemyFrame"..i]:ClearAllPoints()
+	_G["ArenaEnemyFrame"..i]:ClearAllPoints() -- Removes forcefield to be able to move arena frames
 	_G["ArenaEnemyFrame"..i]:SetScale(1.4) -- Set size of arena frames
 	_G["ArenaEnemyFrame"..i.."CastingBar"]:SetScale(1.4) -- Set size of arena castbars
 	_G["ArenaEnemyFrame"..i]:SetPoint("CENTER", FocusFrame, "CENTER", 0, 80+(i-1)*50) -- Set position of arena frames
-	--_G["ArenaEnemyFrame"..i.."CastingBar"]:SetPoint("RIGHT", 95, 0) -- Set position of arena castbar
-	--_G["ArenaEnemyFrame"..i].SetPoint = function() end -- if arena frames dont update their position
-	_G["ArenaEnemyFrame"..i.."PetFrame"]:ClearAllPoints()
-	_G["ArenaEnemyFrame"..i.."PetFrame"]:SetPoint("TOP", "ArenaEnemyFrame"..i, "BOTTOM", 0, 5)
+	--_G["ArenaEnemyFrame"..i.."CastingBar"]:SetPoint("RIGHT", 95, 0) -- Set position of arena castbar (to right side of frames)
+	_G["ArenaEnemyFrame"..i].SetPoint = function() end -- if arena frames don't update their position
+	--_G["ArenaEnemyFrame"..i.."PetFrame"]:ClearAllPoints()
+	--_G["ArenaEnemyFrame"..i.."PetFrame"]:SetPoint("TOP", "ArenaEnemyFrame"..i, "BOTTOM", 0, 5)
 	end
 
-    local arenaFrame, trinket
+    local arenaFrame, trinket -- Tracks pvp trinket
     for i = 1, MAX_ARENA_ENEMIES do
 	    arenaFrame = "ArenaEnemyFrame"..i
         trinket = CreateFrame("Cooldown", arenaFrame.."Trinket", ArenaEnemyFrames)
@@ -27,7 +27,7 @@ function events:ADDON_LOADED(addonName)
         trinket.icon:SetTexture("Interface\\Icons\\inv_jewelry_trinketpvp_01")
         trinket:Hide()
         trinkets["arena"..i] = trinket
-    end
+    end				 
     self:UnregisterEvent("ADDON_LOADED")
 end
 function events:UNIT_SPELLCAST_SUCCEEDED(unitID, spell, rank, lineID, spellID) -- Announces Trinket usage in party chat
@@ -42,7 +42,7 @@ function events:UNIT_SPELLCAST_SUCCEEDED(unitID, spell, rank, lineID, spellID) -
         SendChatMessage("WotF used by: "..GetUnitName(unitID, true), "PARTY")
 	elseif spellID == 108482 then
         CooldownFrame_SetTimer(trinkets[unitID], GetTime(), 60, 1)
-        SendChatMessage("Warlock Trinket used by: "..GetUnitName(unitID, true), "PARTY")
+        SendChatMessage("Warlock Trinket used by: "..GetUnitName(unitID, true), "PARTY") -- not tested yet
     end
 end
 function events:PLAYER_ENTERING_WORLD()
@@ -97,7 +97,7 @@ function iDRt(o,m)for i=1,m do for j in ipairs(DRt)do local f=gDRt(i,j)rDR(f)if 
 dt=CreateFrame("Frame")dt:SetScript("OnEvent",function(_,e,...)if e==dre then clDR(...)elseif e==dra then iDRt(1,GetNumArenaOpponents())else iDRt(nil,5)end end)dt:RegisterEvent(dra)dt:RegisterEvent(drp)dt:RegisterEvent(dre)
 
 local f = CreateFrame("Frame")
-local function Update(self, event, ...)
+local function Update(self, event, ...) -- Say interuppt to party
 	
 	local pvpType = GetZonePVPInfo()	
 		f:UnregisterEvent("ZONE_CHANGED_NEW_AREA")	
@@ -112,7 +112,7 @@ f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 f:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 f:SetScript("OnEvent", Update)
 
-local function Update(self, event, ...)
+local function Update(self, event, ...) -- Says if enemy drinks to party
 	if event == "UNIT_SPELLCAST_SUCCEEDED" then
 		local unit, spellName, spellrank, spelline, spellID = ...
 		if GetZonePVPInfo() == "arena" then
